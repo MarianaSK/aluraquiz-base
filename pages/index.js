@@ -1,11 +1,17 @@
-import styled from 'styled-components'
+/* eslint-disable react/button-has-type */
+import React from 'react';
+import styled from 'styled-components';
+import Head from 'next/head';
 import db from '../db.json';
-import Widget from '../src/components/Widget'
-import QuizLogo from '../src/components/QuizLogo'
-import QuizBackground from '../src/components/QuizBackground'
-import Footer from '../src/components/Footer'
-import GitHubCorner from '../src/components/GitHubCorner'
+import Widget from '../src/components/Widget';
+import QuizLogo from '../src/components/QuizLogo';
+import QuizBackground from '../src/components/QuizBackground';
+import Footer from '../src/components/Footer';
+import GitHubCorner from '../src/components/GitHubCorner';
 import BackgroundLogo from '../src/components/BackgroundLogo';
+import InputInicial from '../src/components/InputInicial';
+import BotaoJogar from '../src/components/BotaoJogar';
+
 // const BackgroundImage = styled.div`
 //   background-image: url(${db.bg});
 //   flex: 1;
@@ -28,20 +34,25 @@ export default function Home() {
   return (
     <QuizBackground backgroundImage={db.bg}>
       <BackgroundLogo>
+        <Head>
+          <title>Quiz Comdinheiro</title>
+        </Head>
         <QuizContainer>
-            <QuizLogo />
+          <QuizLogo />
           <Widget>
             <Widget.Header>
               <h1>{db.title}</h1>
             </Widget.Header>
             <Widget.Content>
               <p>{db.description}</p>
+              <InputInicial placeholder="Digite seu nome" />
+              <BotaoJogar type="submit">Jogar</BotaoJogar>
             </Widget.Content>
           </Widget>
 
           <Widget>
             <Widget.Content>
-              <h1>Quizes da Galera</h1>
+              <h1>Quizes sobre mercado financeiro</h1>
 
               <p>lorem ipsum dolor sit amet...</p>
             </Widget.Content>
