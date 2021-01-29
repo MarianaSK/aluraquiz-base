@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/button-has-type */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+
 import db from '../db.json';
 import Widget from '../src/components/Widget';
 import QuizLogo from '../src/components/QuizLogo';
@@ -31,6 +34,8 @@ export const QuizContainer = styled.div`
 `;
 
 export default function Home() {
+  const router = useRouter();
+  const [name, setName] = React.useState('');
   return (
     <QuizBackground backgroundImage={db.bg}>
       <BackgroundLogo>
@@ -45,8 +50,25 @@ export default function Home() {
             </Widget.Header>
             <Widget.Content>
               <p>{db.description}</p>
-              <InputInicial placeholder="Digite seu nome" />
-              <BotaoJogar type="submit">Jogar</BotaoJogar>
+              <form onSubmit={function (event) {
+                event.preventDefault();
+                router.push(`/quiz?name=${name}`);
+                console.log('submit por meio do react');
+                // router manda para a prox pagina
+              }}
+              >
+                <InputInicial
+                  onChange={function (event) {
+                    console.log(event.target.value);
+                    //State
+                    setName(event.target.value);
+                  }}
+                  placeholder="Digite seu nome"
+                />
+                <BotaoJogar type="submit" disabled={name.length === 0}>
+                  Jogar {name}
+                </BotaoJogar>
+              </form>
             </Widget.Content>
           </Widget>
 

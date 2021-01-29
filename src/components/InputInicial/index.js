@@ -8,7 +8,7 @@ const InputInicial = styled.input`
     bottom: 1px;
     background: transparent;
     border-radius: 3.5px;
-    border-color: #6200EE;
+    border-color: #979797;
     outline: none;
     color: #fff;
     width: 281px;

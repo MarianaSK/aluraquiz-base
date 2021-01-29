@@ -17,6 +17,11 @@ const BotaoJogar = styled.button`
     color: #FFFFFF;
     font-weight: 700;
     font-size: medium;
+
+    :hover{
+        background: #0d47a1;
+        transition: 0.5s;
+    }
     }
 `;
 
