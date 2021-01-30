@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/button-has-type */
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -12,26 +12,15 @@ import QuizBackground from '../src/components/QuizBackground';
 import Footer from '../src/components/Footer';
 import GitHubCorner from '../src/components/GitHubCorner';
 import BackgroundLogo from '../src/components/BackgroundLogo';
-import InputInicial from '../src/components/InputInicial';
+import Input from '../src/components/InputInicial';
 import BotaoJogar from '../src/components/BotaoJogar';
-
+import QuizContainer from '../src/components/QuizContainer';
 // const BackgroundImage = styled.div`
 //   background-image: url(${db.bg});
 //   flex: 1;
 //   background-size: cover;
 //   background-position: center;
 // `;
-
-export const QuizContainer = styled.div`
-  width: 100%;
-  max-width: 350px;
-  padding-top: 45px;
-  margin: auto 10%;
-  @media screen and (max-width: 500px) {
-    margin: auto;
-    padding: 15px;
-  }
-`;
 
 export default function Home() {
   const router = useRouter();
@@ -57,16 +46,14 @@ export default function Home() {
                 // router manda para a prox pagina
               }}
               >
-                <InputInicial
-                  onChange={function (event) {
-                    console.log(event.target.value);
-                    //State
-                    setName(event.target.value);
-                  }}
+                <Input
+                  name="nomeDoUsuario"
+                  onChange={(event) => setName(event.target.value)}
                   placeholder="Digite seu nome"
+                  value={name}
                 />
                 <BotaoJogar type="submit" disabled={name.length === 0}>
-                  Jogar {name}
+                  {`Jogar ${name}`}
                 </BotaoJogar>
               </form>
             </Widget.Content>

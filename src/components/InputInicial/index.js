@@ -1,5 +1,7 @@
 /* eslint-disable linebreak-style */
+import React from 'react';
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 
 const InputInicial = styled.input`
     left: 1px;
@@ -16,4 +18,26 @@ const InputInicial = styled.input`
     margin-top: 33px;
 `;
 
-export default InputInicial;
+export default function Input({ onChange, placeholder, ...props }) {
+  return (
+    <div>
+      <InputInicial
+        onChange={onChange}
+        placeholder={placeholder}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...props}
+      />
+    </div>
+  );
+}
+
+Input.defaultProps = {
+  value: '',
+};
+
+Input.propTypes = {
+  onChange: propTypes.func.isRequired,
+  placeholder: propTypes.string.isRequired,
+  name: propTypes.string.isRequired,
+  value: propTypes.string,
+};
