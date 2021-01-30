@@ -1,60 +1,32 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-shadow */
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import db from '../db.json';
-import Widget from '../src/components/Widget';
 import QuizLogo from '../src/components/QuizLogo';
 import QuizBackground from '../src/components/QuizBackground';
-import Footer from '../src/components/Footer';
+import LoadingWidget from '../src/components/Loading';
 import GitHubCorner from '../src/components/GitHubCorner';
 import BackgroundLogo from '../src/components/BackgroundLogo';
-import BotaoJogar from '../src/components/BotaoJogar';
 import QuizContainer from '../src/components/QuizContainer';
+import QuestionWidget from '../src/containers/QuestionWidget';
 
 export default function QuizPage() {
+  const totalQuestions = db.questions.length;
+  const questionIndex = 0;
+  const question = db.questions[questionIndex];
+
   return (
     <QuizBackground backgroundImage={db.bg}>
       <BackgroundLogo>
         <QuizContainer>
           <QuizLogo />
-          <Widget>
-            <Widget.Header>
-              <h1>
-                Pergunta
-                1
-                de
-                {`${db.questions.length}`}
-              </h1>
-            </Widget.Header>
-            <img
-              alt="Descrição"
-              style={{
-                width: '100%',
-                height: '150px',
-                objectFit: 'cover',
-              }}
-              src="https://placehold.it/400x400"
-            />
-            <Widget.Content>
-              <h2>
-                Titulo
-              </h2>
-              <p>
-                Descrição
-              </p>
-              <BotaoJogar type="submit">
-                Confirmar
-              </BotaoJogar>
-            </Widget.Content>
-          </Widget>
-
-          <Widget>
-            <Widget.Content>
-              <h1>Quizes sobre mercado financeiro</h1>
-
-              <p>lorem ipsum dolor sit amet...</p>
-            </Widget.Content>
-          </Widget>
-          <Footer />
+          <QuestionWidget
+            question={question}
+            questionIndex={questionIndex}
+            totalQuestions={totalQuestions}
+          />
+          <LoadingWidget />
         </QuizContainer>
       </BackgroundLogo>
       <GitHubCorner projectUrl="https://github.com/MarianaSK" />
