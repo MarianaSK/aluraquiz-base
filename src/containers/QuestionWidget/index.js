@@ -7,8 +7,15 @@ import db from '../../../db.json';
 import Widget from '../../components/Widget';
 import BotaoJogar from '../../components/BotaoJogar';
 
-function QuestionWidget({ question, totalQuestions, questionIndex, onSubmit }) {
+function QuestionWidget({
+  question, totalQuestions, questionIndex, onSubmit,
+}) {
+  const [isQuestionSubmited, setIsQuestionSubmited] = React.useState(false);
+  const [selectedAlternative, setSelectedAlternative] = React.useState(undefined);
   const questionId = `question__${questionIndex}`;
+  const isCorrect = selectedAlternative === question.answer;
+  const hasAlternativeSelected = selectedAlternative !== undefined;
+
   return (
     <Widget>
       <Widget.Header>
@@ -34,30 +41,38 @@ function QuestionWidget({ question, totalQuestions, questionIndex, onSubmit }) {
         </p>
         <form onSubmit={(evento) => {
           evento.preventDefault();
-          onSubmit();
+          setIsQuestionSubmited(true);
+          setTimeout(() => {
+            setIsQuestionSubmited(false);
+            setSelectedAlternative(undefined);
+            onSubmit();
+          }, 3 * 1000);
         }}
         >
           {question.alternatives.map((alternative, alternativeIndex) => {
-            console.log('ff');
             const alternativeId = `alternative__${alternativeIndex}`;
             return (
               <Widget.Topic
                 as="label"
+                key={alternativeId}
                 htmlFor={alternativeId}
               >
                 <input
-                  style={{ display: 'none' }}
+                  // style={{ display: 'none' }}
                   id={alternative}
                   name={questionId}
+                  onChange={() => setSelectedAlternative(alternativeIndex)}
                   type="radio"
                 />
                 {alternative}
               </Widget.Topic>
             );
           })}
-          <BotaoJogar type="submit">
+          <BotaoJogar type="submit" disabled={!hasAlternativeSelected}>
             Confirmar
           </BotaoJogar>
+          {isCorrect && isQuestionSubmited && <p>Correto!</p>}
+          {!isCorrect && isQuestionSubmited && <p>Incorreto!</p>}
         </form>
 
       </Widget.Content>

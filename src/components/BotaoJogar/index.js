@@ -21,6 +21,7 @@ const BotaoJogar = styled.button`
     :hover{
         background: #0d47a1;
         transition: 0.5s;
+        cursor: pointer;
     }
     }
 `;
