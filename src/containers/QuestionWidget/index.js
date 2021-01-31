@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable linebreak-style */
@@ -6,7 +7,8 @@ import db from '../../../db.json';
 import Widget from '../../components/Widget';
 import BotaoJogar from '../../components/BotaoJogar';
 
-function QuestionWidget({ question, totalQuestions, questionIndex }) {
+function QuestionWidget({ question, totalQuestions, questionIndex, onSubmit }) {
+  const questionId = `question__${questionIndex}`;
   return (
     <Widget>
       <Widget.Header>
@@ -30,9 +32,34 @@ function QuestionWidget({ question, totalQuestions, questionIndex }) {
         <p>
           {question.description}
         </p>
-        <BotaoJogar type="submit">
-          Confirmar
-        </BotaoJogar>
+        <form onSubmit={(evento) => {
+          evento.preventDefault();
+          onSubmit();
+        }}
+        >
+          {question.alternatives.map((alternative, alternativeIndex) => {
+            console.log('ff');
+            const alternativeId = `alternative__${alternativeIndex}`;
+            return (
+              <Widget.Topic
+                as="label"
+                htmlFor={alternativeId}
+              >
+                <input
+                  style={{ display: 'none' }}
+                  id={alternative}
+                  name={questionId}
+                  type="radio"
+                />
+                {alternative}
+              </Widget.Topic>
+            );
+          })}
+          <BotaoJogar type="submit">
+            Confirmar
+          </BotaoJogar>
+        </form>
+
       </Widget.Content>
     </Widget>
   );
